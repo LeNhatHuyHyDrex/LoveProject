@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { Heart, HeartHandshake, ShieldCheck } from 'lucide-react';
-import { fallbackFloatingMedia } from '../data/fallbackData';
+import { useFloatingMedia } from '../hooks/useFloatingMedia';
 import { useLetter } from '../hooks/useLetters';
 import { useSettings } from '../hooks/useSettings';
 import { useTimeline } from '../hooks/useTimeline';
@@ -15,7 +15,7 @@ export const AcceptPage = () => {
   const { letter, error: letterError } = useLetter('accept');
   const { items, error: timelineError } = useTimeline();
   const { settings } = useSettings();
-  const floatingMedia = items.flatMap((item) => item.media).filter((media) => media.is_floating);
+  const { media: floatingMedia } = useFloatingMedia();
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -47,7 +47,7 @@ export const AcceptPage = () => {
       <ParticleBackground />
       <FloatingPhotos
         enabled={settings.enable_floating_photos}
-        media={floatingMedia.length > 0 ? floatingMedia : fallbackFloatingMedia}
+        media={floatingMedia}
       />
       <MusicToggle settings={settings} />
       <section className="relative z-20 mx-auto flex min-h-[88vh] max-w-6xl flex-col items-center justify-center px-4 pb-12 pt-24 sm:px-6 lg:px-8">

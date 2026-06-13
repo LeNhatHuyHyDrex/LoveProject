@@ -216,7 +216,15 @@ export const AdminMedia = () => {
           <h2 className="mb-5 font-semibold">{editingId ? 'Sửa media' : 'Thêm media'}</h2>
           <div className="mb-5 rounded-2xl border border-white/10 bg-black/18 p-4">
             <p className="mb-3 text-sm text-white/70">Upload Cloudinary</p>
-            <label className="inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-2xl bg-rose-200 px-4 text-sm font-bold text-[#351225] transition hover:scale-[1.01] aria-disabled:pointer-events-none aria-disabled:opacity-50">
+            <label
+              aria-disabled={!isCloudinaryConfigured || uploading}
+              title={
+                isCloudinaryConfigured
+                  ? 'Chọn ảnh hoặc video để upload'
+                  : 'Cần cấu hình Cloudinary trong .env trước'
+              }
+              className="inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-2xl bg-rose-200 px-4 text-sm font-bold text-[#351225] transition hover:scale-[1.01] aria-disabled:pointer-events-none aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+            >
               <Upload className="h-4 w-4" />
               {uploading ? 'Đang upload...' : 'Chọn ảnh/video'}
               <input

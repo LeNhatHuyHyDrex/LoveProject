@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MessageCircleHeart } from 'lucide-react';
-import { fallbackFloatingMedia } from '../data/fallbackData';
 import { supabase } from '../lib/supabase';
+import { useFloatingMedia } from '../hooks/useFloatingMedia';
 import { useSettings } from '../hooks/useSettings';
 import { FloatingPhotos } from '../components/FloatingPhotos';
 import { IntroModal } from '../components/IntroModal';
@@ -12,6 +12,7 @@ import type { LoveChoice } from '../types';
 export const Home = () => {
   const navigate = useNavigate();
   const { settings } = useSettings();
+  const { media: floatingMedia } = useFloatingMedia();
   const [busyChoice, setBusyChoice] = useState<LoveChoice | null>(null);
 
   const handleChoose = async (choice: LoveChoice) => {
@@ -32,7 +33,7 @@ export const Home = () => {
   return (
     <main className="relative min-h-screen overflow-hidden text-white">
       <ParticleBackground />
-      <FloatingPhotos enabled={settings.enable_floating_photos} media={fallbackFloatingMedia} />
+      <FloatingPhotos enabled={settings.enable_floating_photos} media={floatingMedia} />
       <section className="relative z-20 flex min-h-screen items-end justify-center px-5 pb-10 pt-28">
         <div className="max-w-xl text-center">
           <div className="mx-auto mb-5 inline-flex items-center gap-2 rounded-full border border-white/18 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-amber-100 backdrop-blur-xl">
