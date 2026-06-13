@@ -2,10 +2,12 @@ import { useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { Heart, HeartHandshake, ShieldCheck } from 'lucide-react';
 import { useFloatingMedia } from '../hooks/useFloatingMedia';
+import { useHeroMedia } from '../hooks/useHeroMedia';
 import { useLetter } from '../hooks/useLetters';
 import { useSettings } from '../hooks/useSettings';
 import { useTimeline } from '../hooks/useTimeline';
 import { FloatingPhotos } from '../components/FloatingPhotos';
+import { HeroMediaBackdrop } from '../components/HeroMediaBackdrop';
 import { LoveLetter } from '../components/LoveLetter';
 import { MusicToggle } from '../components/MusicToggle';
 import { ParticleBackground } from '../components/ParticleBackground';
@@ -16,6 +18,7 @@ export const AcceptPage = () => {
   const { items, error: timelineError } = useTimeline();
   const { settings } = useSettings();
   const { media: floatingMedia } = useFloatingMedia();
+  const { media: heroMedia } = useHeroMedia();
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -45,6 +48,7 @@ export const AcceptPage = () => {
   return (
     <main className="relative min-h-screen overflow-hidden text-white">
       <ParticleBackground />
+      <HeroMediaBackdrop media={heroMedia} />
       <FloatingPhotos
         enabled={settings.enable_floating_photos}
         media={floatingMedia}

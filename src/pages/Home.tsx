@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { MessageCircleHeart } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { useFloatingMedia } from '../hooks/useFloatingMedia';
+import { useHeroMedia } from '../hooks/useHeroMedia';
 import { useSettings } from '../hooks/useSettings';
 import { FloatingPhotos } from '../components/FloatingPhotos';
+import { HeroMediaBackdrop } from '../components/HeroMediaBackdrop';
 import { IntroModal } from '../components/IntroModal';
 import { ParticleBackground } from '../components/ParticleBackground';
 import type { LoveChoice } from '../types';
@@ -13,6 +15,7 @@ export const Home = () => {
   const navigate = useNavigate();
   const { settings } = useSettings();
   const { media: floatingMedia } = useFloatingMedia();
+  const { media: heroMedia } = useHeroMedia();
   const [busyChoice, setBusyChoice] = useState<LoveChoice | null>(null);
 
   const handleChoose = async (choice: LoveChoice) => {
@@ -33,6 +36,7 @@ export const Home = () => {
   return (
     <main className="relative min-h-screen overflow-hidden text-white">
       <ParticleBackground />
+      <HeroMediaBackdrop media={heroMedia} />
       <FloatingPhotos enabled={settings.enable_floating_photos} media={floatingMedia} />
       <section className="relative z-20 flex min-h-screen items-end justify-center px-5 pb-10 pt-28">
         <div className="max-w-xl text-center">
