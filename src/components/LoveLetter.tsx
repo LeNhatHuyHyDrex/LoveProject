@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Feather, Heart } from 'lucide-react';
+import { Heart, NotebookPen } from 'lucide-react';
 import type { Letter } from '../types';
 
 const splitContent = (content: string) => content.split('\n').filter((line) => line.trim().length > 0);
@@ -14,7 +14,11 @@ export const LoveLetter = ({ letter, variant = 'accept' }: { letter: Letter; var
   >
     <div className="mb-6 flex items-center gap-3 text-amber-100">
       <span className="grid h-11 w-11 place-items-center rounded-full border border-amber-100/35 bg-amber-100/15">
-        {variant === 'accept' ? <Heart className="h-5 w-5 fill-current" /> : <Feather className="h-5 w-5" />}
+        {variant === 'accept' ? (
+          <Heart className="h-5 w-5 fill-current" />
+        ) : (
+          <NotebookPen className="h-5 w-5" />
+        )}
       </span>
       <span className="text-xs font-semibold uppercase tracking-[0.25em] text-amber-100/75">
         Lá thư của Heli
