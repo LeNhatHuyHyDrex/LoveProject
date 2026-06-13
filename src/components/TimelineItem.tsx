@@ -9,14 +9,14 @@ export const TimelineItem = ({ item, index }: { item: TimelineItemType; index: n
   return (
     <div
       className={clsx(
-        'timeline-reveal relative flex w-full opacity-0',
+        'timeline-reveal relative flex w-full pl-9 opacity-0 md:pl-0',
         isRight ? 'md:justify-end' : 'md:justify-start',
       )}
     >
-      <span className="absolute left-4 top-8 z-10 hidden h-4 w-4 rounded-full border-2 border-amber-100 bg-rose-300 shadow-[0_0_24px_rgba(253,186,116,0.65)] md:left-1/2 md:block md:-translate-x-1/2" />
+      <span className="absolute left-4 top-7 z-10 block h-4 w-4 -translate-x-1/2 rounded-full border-2 border-amber-100 bg-rose-300 shadow-[0_0_24px_rgba(253,186,116,0.65)] md:left-1/2 md:top-8" />
       <article
         className={clsx(
-          'group relative w-full rounded-[24px] border p-5 text-white shadow-glow backdrop-blur-2xl sm:p-6 md:w-[calc(50%-2.25rem)]',
+          'group relative w-full rounded-[22px] border p-4 text-white shadow-glow backdrop-blur-2xl sm:p-6 md:w-[calc(50%-2.25rem)] md:rounded-[24px]',
           item.is_highlight
             ? 'border-amber-100/35 bg-white/[0.16]'
             : 'border-white/18 bg-white/[0.11]',

@@ -38,13 +38,13 @@ export const Home = () => {
       <ParticleBackground />
       <HeroMediaBackdrop media={heroMedia} />
       <FloatingPhotos enabled={settings.enable_floating_photos} media={floatingMedia} />
-      <section className="relative z-20 flex min-h-screen items-end justify-center px-5 pb-10 pt-28">
+      <section className="relative z-20 flex min-h-[100svh] items-end justify-center px-4 pb-8 pt-24 sm:px-5 sm:pb-10 sm:pt-28">
         <div className="max-w-xl text-center">
-          <div className="mx-auto mb-5 inline-flex items-center gap-2 rounded-full border border-white/18 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-amber-100 backdrop-blur-xl">
+          <div className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full border border-white/18 bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-amber-100 backdrop-blur-xl sm:mb-5 sm:text-xs sm:tracking-[0.24em]">
             <MessageCircleHeart className="h-4 w-4" />
             Một câu hỏi nhỏ của Heli
           </div>
-          <p className="text-sm leading-7 text-rose-50/75">
+          <p className="text-sm leading-6 text-rose-50/75 sm:leading-7">
             Trang này được chuẩn bị để lưu lại một khoảnh khắc thật mềm. Bé chỉ cần chọn điều đúng
             với trái tim mình.
           </p>

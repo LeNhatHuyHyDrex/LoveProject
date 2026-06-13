@@ -11,28 +11,28 @@ export const IntroModal = ({
   busyChoice: LoveChoice | null;
   onChoose: (choice: LoveChoice) => void;
 }) => (
-  <div className="fixed inset-0 z-40 grid place-items-center px-4 py-8">
+  <div className="fixed inset-0 z-40 grid place-items-center px-3 py-4 sm:px-4 sm:py-8">
     <div className="absolute inset-0 bg-[#120716]/55 backdrop-blur-sm" />
     <motion.div
       initial={{ opacity: 0, scale: 0.92, y: 16 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="relative w-full max-w-xl overflow-hidden rounded-[28px] border border-white/20 bg-white/15 p-6 text-center text-white shadow-glow backdrop-blur-2xl sm:p-8"
+      className="relative max-h-[calc(100svh-2rem)] w-full max-w-xl overflow-y-auto rounded-[24px] border border-white/20 bg-white/15 p-5 text-center text-white shadow-glow backdrop-blur-2xl sm:rounded-[28px] sm:p-8"
     >
-      <div className="mx-auto mb-5 grid h-16 w-16 place-items-center rounded-full border border-amber-100/40 bg-amber-100/15 text-amber-100 shadow-gold">
-        <Heart className="h-8 w-8 fill-current" />
+      <div className="mx-auto mb-4 grid h-14 w-14 place-items-center rounded-full border border-amber-100/40 bg-amber-100/15 text-amber-100 shadow-gold sm:mb-5 sm:h-16 sm:w-16">
+        <Heart className="h-7 w-7 fill-current sm:h-8 sm:w-8" />
       </div>
-      <p className="mb-3 text-sm font-medium uppercase tracking-[0.28em] text-amber-100/80">
+      <p className="mb-3 text-[11px] font-medium uppercase tracking-[0.2em] text-amber-100/80 sm:text-sm sm:tracking-[0.28em]">
         {settings.heli_name} có một điều muốn hỏi {settings.lover_name}…
       </p>
-      <h1 className="font-display text-3xl leading-tight text-white sm:text-5xl">
+      <h1 className="font-display text-[2rem] leading-tight text-white sm:text-5xl">
         {settings.intro_question}
       </h1>
-      <p className="mx-auto mt-5 max-w-md text-sm leading-7 text-rose-50/78 sm:text-base">
+      <p className="mx-auto mt-4 max-w-md text-sm leading-6 text-rose-50/78 sm:mt-5 sm:text-base sm:leading-7">
         Bé cứ trả lời theo trái tim của bé nha. Dù câu trả lời là gì, Heli vẫn trân trọng sự thật
         lòng của bé.
       </p>
-      <div className="mt-8 grid gap-3 sm:grid-cols-2">
+      <div className="mt-6 grid gap-3 sm:mt-8 sm:grid-cols-2">
         <button
           type="button"
           onClick={() => onChoose('accept')}

@@ -55,8 +55,8 @@ export const AcceptPage = () => {
         media={floatingMedia}
       />
       <MusicToggle settings={settings} />
-      <section className="relative z-20 mx-auto flex min-h-[88vh] max-w-6xl flex-col items-center justify-center px-4 pb-12 pt-24 sm:px-6 lg:px-8">
-        <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-amber-100/25 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-amber-100 backdrop-blur-xl">
+      <section className="relative z-20 mx-auto flex min-h-[92svh] max-w-6xl flex-col items-center justify-center px-3 pb-10 pt-20 sm:min-h-[88vh] sm:px-6 sm:pb-12 sm:pt-24 lg:px-8">
+        <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-amber-100/25 bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-amber-100 backdrop-blur-xl sm:mb-8 sm:text-xs sm:tracking-[0.25em]">
           <Heart className="h-4 w-4 fill-current" />
           Bé đã chọn Heli
         </div>
@@ -69,8 +69,8 @@ export const AcceptPage = () => {
       </section>
       <div className="relative z-20">
         <Timeline items={items} />
-        <section className="mx-auto max-w-4xl px-4 pb-24 sm:px-6 lg:px-8">
-          <div className="rounded-[28px] border border-white/20 bg-white/[0.13] p-6 text-white shadow-glow backdrop-blur-2xl sm:p-8">
+        <section className="mx-auto max-w-4xl px-3 pb-20 sm:px-6 sm:pb-24 lg:px-8">
+          <div className="rounded-[22px] border border-white/20 bg-white/[0.13] p-4 text-white shadow-glow backdrop-blur-2xl sm:rounded-[28px] sm:p-8">
             <div className="mb-5 flex items-center gap-3 text-amber-100">
               <ShieldCheck className="h-6 w-6" />
               <span className="text-xs font-semibold uppercase tracking-[0.24em]">

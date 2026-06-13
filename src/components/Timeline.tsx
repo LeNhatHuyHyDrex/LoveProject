@@ -45,12 +45,12 @@ export const Timeline = ({ items }: { items: TimelineItemType[] }) => {
   }, [timelineKey]);
 
   return (
-    <section className="relative mx-auto mt-16 w-full max-w-6xl px-4 pb-20 sm:px-6 lg:px-8">
-      <div className="mx-auto mb-10 max-w-2xl text-center">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-amber-100/70">
+    <section className="relative mx-auto mt-12 w-full max-w-6xl px-3 pb-16 sm:mt-16 sm:px-6 sm:pb-20 lg:px-8">
+      <div className="mx-auto mb-8 max-w-2xl text-center sm:mb-10">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-100/70 sm:text-xs sm:tracking-[0.3em]">
           Con đường kỷ niệm
         </p>
-        <h2 className="mt-3 font-display text-4xl text-white sm:text-5xl">Timeline của đôi ta</h2>
+        <h2 className="mt-3 font-display text-3xl text-white sm:text-5xl">Timeline của đôi ta</h2>
         <p className="mt-4 text-sm leading-7 text-rose-50/70">
           Mỗi mốc là một đoạn rất nhỏ, nhưng khi ghép lại thì thành lý do Heli muốn ở cạnh bé lâu
           hơn.
@@ -62,8 +62,8 @@ export const Timeline = ({ items }: { items: TimelineItemType[] }) => {
           mốc hiện có.
         </div>
       ) : (
-        <div className="relative space-y-6 md:space-y-10">
-          <span className="absolute left-4 top-0 hidden h-full w-px bg-gradient-to-b from-transparent via-amber-100/40 to-transparent md:left-1/2 md:block" />
+        <div className="relative space-y-5 md:space-y-10">
+          <span className="absolute left-4 top-0 block h-full w-px bg-gradient-to-b from-transparent via-amber-100/40 to-transparent md:left-1/2" />
           {items.map((item, index) => (
             <TimelineItem key={item.id} item={item} index={index} />
           ))}
