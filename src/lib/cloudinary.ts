@@ -27,9 +27,11 @@ export const uploadToCloudinary = async (file: File): Promise<CloudinaryUploadRe
     throw new Error('Cloudinary chưa được cấu hình.');
   }
 
-  const folder = file.type.startsWith('video/')
-    ? 'love-confession/videos'
-    : 'love-confession/images';
+  const folder = file.type.startsWith('audio/')
+    ? 'love-confession/music'
+    : file.type.startsWith('video/')
+      ? 'love-confession/videos'
+      : 'love-confession/images';
   const formData = new FormData();
   formData.append('file', file);
   formData.append('upload_preset', uploadPreset);

@@ -35,7 +35,7 @@ export const Home = () => {
 
   return (
     <main className="relative min-h-screen overflow-hidden text-white">
-      <ParticleBackground />
+      <ParticleBackground variant={settings.theme} />
       <HeroMediaBackdrop media={heroMedia} />
       <FloatingPhotos enabled={settings.enable_floating_photos} media={floatingMedia} />
       <section className="relative z-20 flex min-h-[100svh] items-end justify-center px-4 pb-8 pt-24 sm:px-5 sm:pb-10 sm:pt-28">

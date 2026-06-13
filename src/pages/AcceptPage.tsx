@@ -48,7 +48,7 @@ export const AcceptPage = () => {
 
   return (
     <main className="relative min-h-screen overflow-hidden text-white">
-      <ParticleBackground />
+      <ParticleBackground variant={settings.theme} />
       <HeroMediaBackdrop media={heroMedia} />
       <FloatingPhotos
         enabled={settings.enable_floating_photos}

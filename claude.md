@@ -47,6 +47,8 @@ https://github.com/LeNhatHuyHyDrex/LoveProject
 - `src/components/FloatingPhotos.tsx`: anh bay xung quanh man hinh, da toi uu ca mobile.
 - `src/components/HeroMediaBackdrop.tsx`: hien anh hero lam nen cinematic cho `/` va `/accept`.
 - `src/components/LoveLetter.tsx`: card thu, icon accept la heart, gentle la notebook.
+- `src/components/MusicToggle.tsx`: vinyl music player goc phai duoi, co play/pause va seek bar.
+- `src/components/ParticleBackground.tsx`: doc theme va doi nen theo `luxury-romantic`, `night-healing`, `soft-pearl`.
 - `src/components/Timeline.tsx` va `TimelineItem.tsx`: timeline scroll reveal, mobile co duong doc va dot.
 - `src/pages/*`: cac page public va admin.
 - `supabase/schema.sql`: schema, seed data, RLS policies.
@@ -81,6 +83,19 @@ RLS:
 - Video khong preload hang loat. Timeline chi hien thumbnail, click moi mo modal.
 - YouTube link duoc render bang embed modal, thumbnail lay tu YouTube ID.
 
+## Music va theme
+
+- Nhac nen dung setting `background_music_url` va `enable_music`.
+- Admin Settings co nut upload nhac len Cloudinary. Upload xong URL tu dien vao `background_music_url` va tu bat `enable_music`; van can bam "Luu settings" de ghi Supabase.
+- Cloudinary audio upload di vao folder `love-confession/music`.
+- Public player la icon dia than o goc phai duoi. Click dia than se mo panel ngang, tu phat nhac neu browser cho phep, co nut play/pause va thanh tua.
+- Dia than xoay khi nhac dang phat.
+- Theme trong Admin Settings hien da co tac dung that tren public pages:
+  - `luxury-romantic`: hong/tim/vang luxury romantic.
+  - `night-healing`: xanh dem/tim, cam giac chua lanh.
+  - `soft-pearl`: hong ngoc trai mem hon.
+- Theme duoc truyen vao `ParticleBackground` tren `/`, `/accept`, `/gentle`.
+
 ## Cac thay doi gan day
 
 - Thay toan bo icon Sparkles bang icon phu hop hon theo ngu canh.
@@ -96,7 +111,9 @@ RLS:
   - Timeline mobile co duong doc va dot.
   - Public pages giam padding/khoang cach de doc dep tren dien thoai.
   - Hero backdrop mobile giam opacity de khong lam kho doc.
-- Da push len GitHub cac commit gan day, commit moi nhat: `Optimize mobile experience`.
+- Them vinyl music player va upload nhac trong Admin Settings.
+- Lam theme Admin Settings hoat dong that tren public pages.
+- Da push len GitHub cac thay doi gan day; xem `git log --oneline` de biet commit moi nhat.
 
 ## Env can cau hinh
 

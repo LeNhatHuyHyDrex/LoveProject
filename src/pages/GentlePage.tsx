@@ -12,7 +12,7 @@ export const GentlePage = () => {
 
   return (
     <main className="relative min-h-screen overflow-hidden text-white">
-      <ParticleBackground variant="night" />
+      <ParticleBackground variant={settings.theme} />
       <MusicToggle settings={settings} />
       <section className="relative z-20 mx-auto flex min-h-[100svh] max-w-5xl flex-col items-center justify-center px-3 py-14 sm:px-6 sm:py-20 lg:px-8">
         <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-sky-100/25 bg-white/8 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-sky-100 backdrop-blur-xl sm:mb-8 sm:text-xs sm:tracking-[0.25em]">

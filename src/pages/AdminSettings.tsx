@@ -1,7 +1,8 @@
-import { useEffect, useState, type FormEvent } from 'react';
-import { Save } from 'lucide-react';
+import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react';
+import { Music2, Save, Upload } from 'lucide-react';
 import { toast } from 'sonner';
 import { useSettings } from '../hooks/useSettings';
+import { isCloudinaryConfigured, uploadToCloudinary } from '../lib/cloudinary';
 import { isSupabaseConfigured, supabase } from '../lib/supabase';
 import type { AppSettings } from '../types';
 
@@ -9,6 +10,7 @@ export const AdminSettings = () => {
   const { settings: loadedSettings, loading } = useSettings();
   const [settings, setSettings] = useState<AppSettings>(loadedSettings);
   const [saving, setSaving] = useState(false);
+  const [uploadingMusic, setUploadingMusic] = useState(false);
 
   useEffect(() => {
     setSettings(loadedSettings);
@@ -41,6 +43,31 @@ export const AdminSettings = () => {
 
   const update = <Key extends keyof AppSettings>(key: Key, value: AppSettings[Key]) => {
     setSettings((current) => ({ ...current, [key]: value }));
+  };
+
+  const uploadMusic = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+
+    if (!file) {
+      return;
+    }
+
+    setUploadingMusic(true);
+
+    try {
+      const result = await uploadToCloudinary(file);
+      setSettings((current) => ({
+        ...current,
+        background_music_url: result.secure_url,
+        enable_music: true,
+      }));
+      toast.success('Upload nhạc thành công. Bấm Lưu settings để áp dụng.');
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : 'Upload nhạc thất bại.');
+    } finally {
+      setUploadingMusic(false);
+      event.target.value = '';
+    }
   };
 
   return (
@@ -99,6 +126,47 @@ export const AdminSettings = () => {
               className="min-h-11 w-full rounded-2xl border border-white/10 bg-black/20 px-4 text-white outline-none focus:border-amber-100/60"
             />
           </label>
+        </div>
+
+        <div className="rounded-3xl border border-white/10 bg-black/15 p-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <span className="mb-1 block text-sm text-white/70">Upload nhạc nền</span>
+              <p className="text-xs leading-5 text-white/42">
+                Chọn file mp3/m4a/wav. Upload xong URL sẽ tự điền vào ô bên dưới.
+              </p>
+            </div>
+            <label
+              aria-disabled={!isCloudinaryConfigured || uploadingMusic}
+              className="inline-flex min-h-10 cursor-pointer items-center gap-2 rounded-2xl bg-rose-200 px-4 text-sm font-bold text-[#351225] transition hover:scale-[1.01] aria-disabled:pointer-events-none aria-disabled:cursor-not-allowed aria-disabled:opacity-50"
+            >
+              <Upload className="h-4 w-4" />
+              {uploadingMusic ? 'Đang upload...' : 'Upload nhạc'}
+              <input
+                type="file"
+                accept="audio/*,.mp3,.m4a,.wav,.ogg"
+                className="sr-only"
+                disabled={!isCloudinaryConfigured || uploadingMusic}
+                onChange={uploadMusic}
+              />
+            </label>
+          </div>
+          {!isCloudinaryConfigured ? (
+            <p className="mt-3 rounded-2xl border border-amber-100/20 bg-amber-100/10 px-3 py-2 text-xs leading-5 text-amber-100">
+              Cần cấu hình Cloudinary trong `.env` trước khi upload nhạc.
+            </p>
+          ) : null}
+          {settings.background_music_url ? (
+            <a
+              href={settings.background_music_url}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-3 inline-flex min-h-10 items-center justify-center gap-2 rounded-2xl border border-white/10 px-4 text-sm text-white/75 transition hover:bg-white/10"
+            >
+              <Music2 className="h-4 w-4" />
+              Nghe thử nhạc hiện tại
+            </a>
+          ) : null}
         </div>
 
         <label className="block">
