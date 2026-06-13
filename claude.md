@@ -1,10 +1,14 @@
 # Love Confession Web - Project Notes
 
-## Đã làm được
+## Tong quan
 
-Đây là một web tỏ tình/love confession hoàn chỉnh dùng React + Vite + TypeScript + Tailwind CSS. Public site có intro modal hỏi bé Quắn, lưu lựa chọn vào Supabase nếu đã cấu hình, rồi chuyển sang `/accept` hoặc `/gentle`. Trang `/accept` có thư cảm ơn, confetti nhẹ, timeline kỷ niệm, ảnh/video lazy load và modal video. Trang `/gentle` có thư nhẹ nhàng, nền đêm/sao/trăng và nút quay lại.
+Day la web to tinh/love confession cho Heli va be Quan. Project dung React + Vite + TypeScript + Tailwind CSS, co public site va admin dashboard. Public site chay duoc bang fallback data neu Supabase chua san sang, nhung khi da cau hinh Supabase thi noi dung se doc tu database.
 
-Admin đã có Supabase Auth email/password và kiểm tra quyền bằng bảng `admin_users`. Các route admin gồm dashboard, letters, timeline, media và settings. Admin có thể sửa thư, thêm/sửa/xóa timeline, đổi thứ tự timeline, gán media vào mốc, upload ảnh/video lên Cloudinary bằng unsigned preset, paste URL/YouTube, xóa media record và chỉnh settings cơ bản.
+Repo GitHub:
+
+```text
+https://github.com/LeNhatHuyHyDrex/LoveProject
+```
 
 ## Stack
 
@@ -13,56 +17,88 @@ Admin đã có Supabase Auth email/password và kiểm tra quyền bằng bảng
 - Framer Motion
 - GSAP + ScrollTrigger cho timeline reveal
 - React Router
-- Supabase cho database, auth, RLS và lưu response
-- Cloudinary unsigned upload preset cho ảnh/video
+- Supabase cho database, auth, RLS va response
+- Cloudinary unsigned upload preset cho anh/video
 - Sonner cho toast
 - Lucide React cho icon
 
-## File quan trọng
-
-- `src/App.tsx`: khai báo routes và lazy-load page.
-- `src/data/fallbackData.ts`: thư, timeline và settings mặc định để web vẫn chạy khi chưa có Supabase.
-- `src/lib/supabase.ts`: Supabase client, chỉ dùng anon key.
-- `src/lib/cloudinary.ts`: upload Cloudinary unsigned, không chứa secret.
-- `src/lib/youtube.ts`: parse YouTube ID, thumbnail, embed URL.
-- `src/hooks/useAdminAuth.tsx`: auth context và kiểm tra `admin_users`.
-- `src/components/*`: intro modal, letter, timeline, gallery, video modal, layout admin.
-- `src/pages/*`: public pages và admin pages.
-- `supabase/schema.sql`: database schema, seed data, RLS policies.
-- `.env.example`: biến môi trường cần có.
-- `README.md`: hướng dẫn setup/deploy.
-
 ## Routes
 
-- `/`: intro modal.
-- `/accept`: thư accept + timeline.
-- `/gentle`: thư gentle.
-- `/admin/login`: login admin.
+- `/`: intro modal hoi be Quan.
+- `/accept`: thu accept, hero media, floating photos, timeline, loi hua nho, nut "Doc lai tu dau".
+- `/gentle`: thu gentle, nen dem/trang/sao, nut quay lai doc lai tu dau.
+- `/admin/login`: login admin bang Supabase Auth.
 - `/admin`: dashboard.
-- `/admin/letters`: sửa thư accept/gentle.
-- `/admin/timeline`: CRUD timeline và gán media.
-- `/admin/media`: upload/paste media.
-- `/admin/settings`: chỉnh tên, câu hỏi intro, nhạc, floating photos, theme.
+- `/admin/letters`: sua thu accept/gentle.
+- `/admin/timeline`: CRUD timeline, doi order, gan media.
+- `/admin/media`: upload/paste media, tick floating/hero, gan timeline.
+- `/admin/settings`: sua ten, cau hoi intro, music, floating photos, theme.
+
+## File quan trong
+
+- `src/App.tsx`: routes va lazy-load pages.
+- `src/data/fallbackData.ts`: thu, timeline, settings mac dinh.
+- `src/lib/supabase.ts`: Supabase client, chi dung anon/publishable key.
+- `src/lib/cloudinary.ts`: Cloudinary unsigned upload, khong chua secret.
+- `src/lib/youtube.ts`: parse YouTube ID, thumbnail, embed URL.
+- `src/hooks/useAdminAuth.tsx`: auth context va check `admin_users`.
+- `src/hooks/useFloatingMedia.ts`: doc anh `is_floating = true` tu `media_files`.
+- `src/hooks/useHeroMedia.ts`: doc anh `is_hero = true` tu `media_files`.
+- `src/components/FloatingPhotos.tsx`: anh bay xung quanh man hinh, da toi uu ca mobile.
+- `src/components/HeroMediaBackdrop.tsx`: hien anh hero lam nen cinematic cho `/` va `/accept`.
+- `src/components/LoveLetter.tsx`: card thu, icon accept la heart, gentle la notebook.
+- `src/components/Timeline.tsx` va `TimelineItem.tsx`: timeline scroll reveal, mobile co duong doc va dot.
+- `src/pages/*`: cac page public va admin.
+- `supabase/schema.sql`: schema, seed data, RLS policies.
+- `.env.example`: cac bien moi truong can co.
+- `README.md`: huong dan setup/deploy.
 
 ## Database
 
 Bảng Supabase:
 
-- `admin_users`: user admin, liên kết `auth.users`.
-- `letters`: thư theo `type` là `accept` hoặc `gentle`.
-- `timeline_items`: mốc timeline.
-- `media_files`: ảnh/video/YouTube, có thể gán `timeline_item_id`.
+- `admin_users`: user admin, lien ket `auth.users`.
+- `letters`: thu theo `type` la `accept` hoac `gentle`.
+- `timeline_items`: moc timeline.
+- `media_files`: anh/video/YouTube, co the gan `timeline_item_id`.
 - `app_settings`: key/value JSONB.
-- `love_responses`: lưu lựa chọn `accept` hoặc `gentle`.
+- `love_responses`: luu lua chon `accept` hoac `gentle`.
 
 RLS:
 
-- Public đọc `letters`, `app_settings`, `media_files`.
-- Public đọc `timeline_items` khi `is_published = true`.
+- Public doc `letters`, `app_settings`, `media_files`.
+- Public doc `timeline_items` khi `is_published = true`.
 - Public insert `love_responses`.
-- Chỉ user có trong `admin_users` được insert/update/delete nội dung.
+- Chi user co trong `admin_users` duoc insert/update/delete noi dung.
 
-## Env cần cấu hình
+## Media behavior
+
+- `Floating photo`: anh se hien trong floating photos neu `type = image` va `is_floating = true`.
+- Floating photos khong can gan timeline nua.
+- Floating photos da hien tren mobile, nhung nho, mo va sat mep de khong che chu.
+- `Hero media`: anh se lam nen cinematic cho `/` va `/accept` neu `type = image` va `is_hero = true`.
+- Neu co nhieu hero media, app lay anh co `order_index` nho nhat.
+- Video khong preload hang loat. Timeline chi hien thumbnail, click moi mo modal.
+- YouTube link duoc render bang embed modal, thumbnail lay tu YouTube ID.
+
+## Cac thay doi gan day
+
+- Thay toan bo icon Sparkles bang icon phu hop hon theo ngu canh.
+- Sua bug timeline bien mat sau khi Supabase load du lieu that: GSAP effect gio phu thuoc ID/order item, khong chi phu thuoc so luong.
+- Them floating media hook doc truc tiep tu `media_files`.
+- Them hero media hook va hero backdrop cho public pages.
+- Doi icon thu gentle sang icon ghi chu `NotebookPen`.
+- Them nut "Doc lai tu dau" o card "Loi hua nho cua Heli" trong `/accept`.
+- Toi uu mobile:
+  - Intro modal gon hon, dung `100svh`.
+  - Love letter giam padding/font spacing tren mobile.
+  - Floating photos hien tren mobile.
+  - Timeline mobile co duong doc va dot.
+  - Public pages giam padding/khoang cach de doc dep tren dien thoai.
+  - Hero backdrop mobile giam opacity de khong lam kho doc.
+- Da push len GitHub cac commit gan day, commit moi nhat: `Optimize mobile experience`.
+
+## Env can cau hinh
 
 ```bash
 VITE_SUPABASE_URL=
@@ -71,10 +107,35 @@ VITE_CLOUDINARY_CLOUD_NAME=
 VITE_CLOUDINARY_UPLOAD_PRESET=
 ```
 
-Không dùng service role key hay Cloudinary API secret trong frontend.
+Khong dua service role key hoac Cloudinary API secret vao frontend.
 
-## Khi update thêm chức năng
+## Deploy
 
-Ưu tiên giữ data access trong `src/hooks` hoặc `src/lib`, không gọi Supabase lộn xộn trong component nếu logic dùng lại được. Public page nên luôn có fallback hoặc empty state để không crash khi Supabase lỗi. Admin action nên có toast, loading state và confirm khi xóa. Video phải tiếp tục lazy-load: chỉ thumbnail trước, click mới render iframe/video.
+Khuyen dung Vercel hoac Cloudflare Pages.
 
-Nếu thêm bảng mới, cập nhật `supabase/schema.sql`, RLS policy và README. Nếu thêm route mới, cập nhật `src/App.tsx` và nếu là admin route thì đặt trong `ProtectedRoute`.
+Build settings:
+
+```text
+Build command: npm run build
+Output directory: dist
+Install command: npm install
+```
+
+Sau khi connect GitHub repo, moi lan sua code chi can:
+
+```bash
+git add .
+git commit -m "message"
+git push
+```
+
+Vercel/Cloudflare se tu build va deploy lai. Neu chi sua thu/timeline/media/settings trong admin thi khong can push code, vi du lieu nam o Supabase.
+
+## Khi update them chuc nang
+
+- Uu tien them data access trong `src/hooks` hoac `src/lib`.
+- Public page nen co fallback/empty state, khong crash khi Supabase loi.
+- Admin action nen co toast, loading state va confirm khi xoa.
+- Khong upload video vao repo; dung Cloudinary hoac YouTube unlisted.
+- Neu them table moi, cap nhat `supabase/schema.sql`, RLS policy va README.
+- Neu them route moi, cap nhat `src/App.tsx`; admin route phai nam trong `ProtectedRoute`.
