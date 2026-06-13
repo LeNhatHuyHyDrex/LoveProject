@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import confetti from 'canvas-confetti';
-import { Heart, HeartHandshake, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, Heart, HeartHandshake, ShieldCheck } from 'lucide-react';
 import { useFloatingMedia } from '../hooks/useFloatingMedia';
 import { useHeroMedia } from '../hooks/useHeroMedia';
 import { useLetter } from '../hooks/useLetters';
@@ -78,12 +79,21 @@ export const AcceptPage = () => {
             </div>
             <h2 className="font-display text-3xl sm:text-4xl">Heli sẽ học cách thương bé tốt hơn.</h2>
             <p className="mt-4 text-sm leading-7 text-rose-50/75 sm:text-base">
-              Không phải bằng những lời quá lớn, mà bằng sự hiện diện, sự lắng nghe, những lần dịu
-              lại đúng lúc, và cách Heli luôn đặt bé ở một vị trí rất được trân trọng.
+              Không phải bằng những lời nói, mà bằng những hành động thiết thực, sự lắng nghe, sự thấu hiểu,
+              và bé luôn có một vị trí rất quan trọng trong lòng Heli không thay thế được.
             </p>
-            <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-amber-100/15 px-4 py-2 text-sm text-amber-100">
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <div className="inline-flex items-center gap-2 rounded-full bg-amber-100/15 px-4 py-2 text-sm text-amber-100">
               <HeartHandshake className="h-4 w-4" />
-              Từ hôm nay, Heli nghiêm túc với điều quý giá này.
+              Heli sẽ cố gắn luôn ghi nhớ những gì mình đã nói.
+              </div>
+              <Link
+                to="/"
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/20 bg-white/12 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-amber-100"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                Đọc lại từ đầu
+              </Link>
             </div>
           </div>
         </section>

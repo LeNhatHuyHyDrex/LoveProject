@@ -17,7 +17,7 @@ export const GentlePage = () => {
       <section className="relative z-20 mx-auto flex min-h-screen max-w-5xl flex-col items-center justify-center px-4 py-20 sm:px-6 lg:px-8">
         <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-sky-100/25 bg-white/8 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-sky-100 backdrop-blur-xl">
           <Moon className="h-4 w-4" />
-          Không áp lực, chỉ dịu dàng
+          Cảm ơn vì bé đã nói thật lòng
         </div>
         <LoveLetter letter={letter} variant="gentle" />
         <div className="mt-8 grid w-full max-w-3xl gap-4 sm:grid-cols-[1fr_auto] sm:items-center">
@@ -26,7 +26,7 @@ export const GentlePage = () => {
               <Stars className="h-5 w-5" />
               <span className="font-semibold">Một điều Heli muốn bé nhớ</span>
             </div>
-            Bé không cần phải vội. Bé cứ thở, cứ là bé, cứ để mọi thứ đi theo nhịp mà bé thấy bình
+            Bé hong cần phải nghĩ nhiều, bé cứ là bé, hong cần phải tháy có lỗi đâu nha
             yên nhất.
           </div>
           <Link
