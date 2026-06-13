@@ -8,6 +8,7 @@ import { useSettings } from '../hooks/useSettings';
 import { FloatingPhotos } from '../components/FloatingPhotos';
 import { HeroMediaBackdrop } from '../components/HeroMediaBackdrop';
 import { IntroModal } from '../components/IntroModal';
+import { MusicToggle } from '../components/MusicToggle';
 import { ParticleBackground } from '../components/ParticleBackground';
 import type { LoveChoice } from '../types';
 
@@ -38,6 +39,7 @@ export const Home = () => {
       <ParticleBackground variant={settings.theme} />
       <HeroMediaBackdrop media={heroMedia} />
       <FloatingPhotos enabled={settings.enable_floating_photos} media={floatingMedia} />
+      <MusicToggle settings={settings} />
       <section className="relative z-20 flex min-h-[100svh] items-end justify-center px-4 pb-8 pt-24 sm:px-5 sm:pb-10 sm:pt-28">
         <div className="max-w-xl text-center">
           <div className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full border border-white/18 bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-amber-100 backdrop-blur-xl sm:mb-5 sm:text-xs sm:tracking-[0.24em]">

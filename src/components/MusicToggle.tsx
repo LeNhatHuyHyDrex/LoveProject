@@ -19,31 +19,78 @@ export const MusicToggle = ({ settings }: { settings: AppSettings }) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [expanded, setExpanded] = useState(false);
   const [playing, setPlaying] = useState(false);
+  const [autoplayBlocked, setAutoplayBlocked] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 
+  const play = async () => {
+    if (!audioRef.current) {
+      return false;
+    }
+
+    try {
+      audioRef.current.volume = 0.72;
+      await audioRef.current.play();
+      setPlaying(true);
+      setAutoplayBlocked(false);
+      return true;
+    } catch {
+      setPlaying(false);
+      setAutoplayBlocked(true);
+      return false;
+    }
+  };
+
   useEffect(() => {
     setPlaying(false);
+    setAutoplayBlocked(false);
     setCurrentTime(0);
     setDuration(0);
   }, [settings.background_music_url]);
 
+  useEffect(() => {
+    if (!settings.enable_music || !settings.background_music_url) {
+      return undefined;
+    }
+
+    let cancelled = false;
+
+    const unlockAudio = async () => {
+      if (cancelled) {
+        return;
+      }
+
+      const didPlay = await play();
+
+      if (didPlay) {
+        window.removeEventListener('pointerdown', unlockAudio);
+        window.removeEventListener('touchstart', unlockAudio);
+        window.removeEventListener('keydown', unlockAudio);
+      }
+    };
+
+    const timer = window.setTimeout(async () => {
+      const didPlay = await play();
+
+      if (!didPlay) {
+        window.addEventListener('pointerdown', unlockAudio, { once: true });
+        window.addEventListener('touchstart', unlockAudio, { once: true });
+        window.addEventListener('keydown', unlockAudio, { once: true });
+      }
+    }, 450);
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timer);
+      window.removeEventListener('pointerdown', unlockAudio);
+      window.removeEventListener('touchstart', unlockAudio);
+      window.removeEventListener('keydown', unlockAudio);
+    };
+  }, [settings.background_music_url, settings.enable_music]);
+
   if (!settings.enable_music || !settings.background_music_url) {
     return null;
   }
-
-  const play = async () => {
-    if (!audioRef.current) {
-      return;
-    }
-
-    try {
-      await audioRef.current.play();
-      setPlaying(true);
-    } catch {
-      setPlaying(false);
-    }
-  };
 
   const pause = () => {
     audioRef.current?.pause();
@@ -103,6 +150,11 @@ export const MusicToggle = ({ settings }: { settings: AppSettings }) => {
               {playing ? <Pause className="h-4 w-4 fill-current" /> : <Play className="ml-0.5 h-4 w-4 fill-current" />}
             </button>
             <div className="min-w-0 flex-1">
+              {autoplayBlocked && !playing ? (
+                <p className="mb-1 truncate text-[10px] font-medium text-amber-100/80">
+                  Chạm để bật nhạc
+                </p>
+              ) : null}
               <input
                 type="range"
                 min={0}
@@ -127,6 +179,9 @@ export const MusicToggle = ({ settings }: { settings: AppSettings }) => {
           aria-label={expanded ? 'Thu gọn trình phát nhạc' : 'Mở trình phát nhạc'}
           title={expanded ? 'Thu gọn trình phát nhạc' : 'Mở trình phát nhạc'}
         >
+          {autoplayBlocked && !playing ? (
+            <span className="absolute -inset-1 rounded-full border border-amber-100/50 animate-ping" />
+          ) : null}
           <span
             className={playing ? 'animate-spin' : ''}
             style={playing ? { animationDuration: '3.5s' } : undefined}

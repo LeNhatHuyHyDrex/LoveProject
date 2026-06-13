@@ -90,6 +90,8 @@ RLS:
 - Cloudinary audio upload di vao folder `love-confession/music`.
 - Public player la icon dia than o goc phai duoi. Click dia than se mo panel ngang, tu phat nhac neu browser cho phep, co nut play/pause va thanh tua.
 - Dia than xoay khi nhac dang phat.
+- Player hien ca o trang `/`, `/accept`, `/gentle`.
+- App se tu goi `audio.play()` khi vao trang neu co `enable_music` va `background_music_url`. Neu browser chan autoplay co am thanh, player se doi lan cham/click/phim dau tien o bat ky dau tren trang roi tu phat lai.
 - Theme trong Admin Settings hien da co tac dung that tren public pages:
   - `luxury-romantic`: hong/tim/vang luxury romantic.
   - `night-healing`: xanh dem/tim, cam giac chua lanh.
@@ -112,6 +114,7 @@ RLS:
   - Public pages giam padding/khoang cach de doc dep tren dien thoai.
   - Hero backdrop mobile giam opacity de khong lam kho doc.
 - Them vinyl music player va upload nhac trong Admin Settings.
+- Them autoplay best-effort cho nhac nen va fallback phat sau lan cham dau tien.
 - Lam theme Admin Settings hoat dong that tren public pages.
 - Da push len GitHub cac thay doi gan day; xem `git log --oneline` de biet commit moi nhat.
 
